@@ -1,4 +1,4 @@
-# Group TEAM_NUMBER
+# Group 60
 Group Name: Group60
 
 [MVP Link](http://cs196.cs.illinois.edu)
