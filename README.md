@@ -1,7 +1,7 @@
 # Group 60
 Group Name: Group60
 
-[MVP Link](http://cs196.cs.illinois.edu)
+[MVP Link](https://docs.google.com/document/d/15COG5lMR9wkeuX8yNAEvavib9tcZ5eq_vfa_pq1KSZs/edit)
 
 Team Members: juchan2, nsunkad2, ayy2, yifanl23, timorea2
 
