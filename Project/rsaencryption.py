@@ -4,11 +4,6 @@ import Crypto
 from Crypto.PublicKey import RSA
 from Crypto import Random
 
-"""helpful reading: https://www.pythonpool.com/rsa-encryption-python/, 
-https://pycryptodome.readthedocs.io/en/latest/src/public_key/rsa.html
-implementation: https://stackoverflow.com/questions/30056762/rsa-encryption-and-decryption-in-python"""
-
-
 random_generator = Random.new().read
 key = RSA.generate(2048, random_generator) #generate public and private keys
 
@@ -38,3 +33,6 @@ f.write(str(decrypted))
 f.close()
 
 
+"""helpful reading: https://www.pythonpool.com/rsa-encryption-python/, 
+https://pycryptodome.readthedocs.io/en/latest/src/public_key/rsa.html
+implementation: https://stackoverflow.com/questions/30056762/rsa-encryption-and-decryption-in-python"""
