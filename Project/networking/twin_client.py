@@ -1,6 +1,6 @@
 import logging
 import pickle
-from typing import Callable
+from typing import Callable, Type
 
 from Project.global_utils import async_function
 from Project.networking.Events.event import Event
@@ -10,15 +10,15 @@ from Project.networking.secure_socket import SecureSocket, ConnectionNotReady
 logger = logging.getLogger(__name__)
 
 
-class TwinClient:
-    def __init__(self, host: str, port: int, session_key: str, event_handler: EventHandler=None):
+class TwinClient(object):
+    def __init__(self, host: str, port: int, session_key: str, event_handler: EventHandler = None):
         self._host = host
         self._port = port
         self._session_key = session_key
         self._event_handler = event_handler
         self._socket = SecureSocket()
         self._broadcasted_callbacks = set()
-        self._running = False
+        self.running = False
 
     def send(self, event: Event):
         try:
@@ -26,7 +26,7 @@ class TwinClient:
         except (TimeoutError, OSError, ConnectionNotReady) as exception:
             logger.warning(f"Send failed: {exception}")
 
-    def recv(self):
+    def recv(self):  # TODO: Add type
         return pickle.loads(self._socket.recv())
 
     def broadcast(self, callback: Callable):
@@ -45,7 +45,7 @@ class TwinClient:
 
     @async_function
     def _handle_broadcasts(self):
-        while self._running:
+        while self.running:
             for callback in self._broadcasted_callbacks:
                 event = callback()
                 if not isinstance(event, Event):
@@ -54,12 +54,12 @@ class TwinClient:
                 self.send(event)
 
     def _handle_events(self):
-        while self._event_handler and self._running:
+        while self._event_handler and self.running:
             event = self.recv()
             if not isinstance(event, Event):
                 logger.warning(f"Expected event received {type(event)} instead")
                 continue
-            self._event_handler.handle(event)
-
-
-
+            try:
+                self._event_handler.handle(event)
+            except ValueError as exception:
+                logger.warning(exception)

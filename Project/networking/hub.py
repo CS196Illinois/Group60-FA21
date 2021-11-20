@@ -11,9 +11,9 @@ class Hub(object):
         self._host = host
         self._port = port
         self._server = socket(AF_INET, SOCK_STREAM)
-        self._running = True
         self._pending = {}
         self._sessions = {}  # TODO: Store session threads
+        self.running = True
 
     def _init_server(self):
         self._server.bind((self._host, self._port))
