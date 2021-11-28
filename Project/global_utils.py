@@ -1,4 +1,5 @@
 import ctypes
+from functools import wraps
 
 from typing import Callable
 from threading import Thread
@@ -8,6 +9,7 @@ from Project.networking.Events.frame_event import FrameEvent
 
 
 def async_function(func: Callable):
+    @wraps(func)
     def wrapper(*args, **kwargs):
         Thread(target=func, args=args, kwargs=kwargs).start()
     return wrapper

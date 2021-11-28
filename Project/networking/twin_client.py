@@ -46,7 +46,11 @@ class TwinClient(object):
 
     @async_function
     def connect(self):
-        self._socket.connect((self._host, self._port))
+        try:
+            self._socket.connect((self._host, self._port))
+        except ConnectionRefusedError:
+            logger.warning(f"Cannot connect to {self._host}:{self._port}")
+            return False
         send_all(self._socket, self._session_key.encode("utf-8"))
         response = int(recv_all(self._socket).decode("utf-8"))
         if response:

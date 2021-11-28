@@ -38,7 +38,7 @@ class SecureClient(TwinClient):
         This allows us to use AES encryption which is significantly faster than RSA, while making sure encryption can't
         be spoofed by third party. Thus we get the asymmetric security with the symmetric speed. Whoa!
         """
-        if super(SecureClient, self).connect():
+        if not super(SecureClient, self).connect.__wrapped__(self):
             return
 
         # 1. Generate public and private RSA keys
