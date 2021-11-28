@@ -1,11 +1,12 @@
 import logging
 import pickle
-from typing import Callable, Type
+from socket import socket, AF_INET, SOCK_STREAM
+from typing import Callable
 
 from Project.global_utils import async_function
 from Project.networking.Events.event import Event
 from Project.networking.event_handler import EventHandler
-from Project.networking.secure_socket import SecureSocket, ConnectionNotReady
+from Project.networking.helpers import send_all, recv_all
 
 logger = logging.getLogger(__name__)
 
@@ -16,18 +17,23 @@ class TwinClient(object):
         self._port = port
         self._session_key = session_key
         self._event_handler = event_handler
-        self._socket = SecureSocket()
+        self._socket = socket(AF_INET, SOCK_STREAM)
         self._broadcasted_callbacks = set()
+        self._connection_ready = False
         self.running = False
 
-    def send(self, event: Event):
-        try:
-            self._socket.send(event.pickle())
-        except (TimeoutError, OSError, ConnectionNotReady) as exception:
-            logger.warning(f"Send failed: {exception}")
+    @property
+    def ready(self):
+        return self._connection_ready
 
-    def recv(self):  # TODO: Add type
-        return pickle.loads(self._socket.recv())
+    def send(self, event: Event):
+        if not self.ready:
+            logger.warning(f"Connection not ready")
+            return
+        send_all(self._socket, event.pickle())
+
+    def recv(self) -> Event:
+        return pickle.loads(recv_all(self._socket))
 
     def broadcast(self, callback: Callable):
         self._broadcasted_callbacks.add(callback)
@@ -40,8 +46,15 @@ class TwinClient(object):
 
     @async_function
     def connect(self):
-        if not self._socket.connect(self._host, self._port, self._session_key):
+        self._socket.connect((self._host, self._port))
+        send_all(self._socket, self._session_key.encode("utf-8"))
+        response = int(recv_all(self._socket).decode("utf-8"))
+        if response:
+            self._connection_ready = True
+        else:
             logger.warning(f"Connection denied by server {self._host}:{self._port}")
+
+        return self._connection_ready
 
     @async_function
     def _handle_broadcasts(self):

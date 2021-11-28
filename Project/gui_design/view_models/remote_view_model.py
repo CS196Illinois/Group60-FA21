@@ -11,3 +11,4 @@ from PyQt5.QtCore import pyqtSlot, pyqtProperty, QVariant
 class RemoteViewModel(QtCore.QObject):
     def __init__(self):
         super(RemoteViewModel, self).__init__()
+

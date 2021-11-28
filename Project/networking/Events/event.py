@@ -8,13 +8,12 @@ class Event(object):
         self.timestamp = datetime.now()
         self.id = uuid1()
 
-    # noinspection PyMethodMayBeStatic
-    def get_args(self):
-        return None
-
     def pickle(self):
         return pickle.dumps(self)
 
     def dispose(self):
         del self
+
+    def __hash__(self):
+        return self.id.__hash__()
 
