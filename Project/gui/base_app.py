@@ -2,6 +2,7 @@ import logging
 import sys
 from typing import Optional
 from PyQt5 import QtWidgets, QtQml, QtCore, QtGui
+#pip3 install PyQt5
 
 logger = logging.getLogger(__name__)
 

@@ -1,5 +1,4 @@
 import logging
-import sys
 from typing import Optional
 from PyQt5 import QtWidgets, QtQml, QtCore, QtGui
 from PyQt5.QtCore import QObject
@@ -7,6 +6,9 @@ from PyQt5.QtGui import QPixmap
 from PyQt5.QtQml import qmlRegisterType
 from PyQt5.QtWidgets import QLabel
 
+import sys
+sys.path.append('./')
+#print(sys.path)
 from Project.global_utils import screenshot, get_dimensions
 from Project.gui.base_app import BaseApplication
 from Project.remote_app.live_image import LiveImage
