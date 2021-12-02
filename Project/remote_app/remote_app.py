@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 
 
 class RemoteApplication(BaseApplication):
-    QML_FILE = r'views\MainView.qml'
+    QML_FILE = "./Project/remote_app/views/MainView.qml"
 
     def __init__(self):
         super(RemoteApplication, self).__init__(self.QML_FILE, "Remote Application")

@@ -53,7 +53,7 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(self.viewfinder)
   
         # Set the default camera.
-        self.select_camera(0)
+        self.select_camera(0) #get video of screen feed instead
   
         # creating a tool bar
         toolbar = QToolBar("Camera Tool Bar")
@@ -103,7 +103,7 @@ class MainWindow(QMainWindow):
         camera_selector.setStatusTip("Choose camera to take pictures")
   
         # adding tool tip to it
-        camera_selector.setToolTip("Select Camera")
+        camera_selector.setToolTip("Select Video Source")
         camera_selector.setToolTipDuration(2500)
   
         # adding items to the combo box

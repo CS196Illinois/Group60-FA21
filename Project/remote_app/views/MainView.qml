@@ -9,6 +9,6 @@ Window {
     height: 900
     Image {
         id: liveWindow
-        source: "image://myprovider/image"
+        source: "../temp.png"
     }
 }

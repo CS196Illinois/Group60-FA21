@@ -1,8 +1,10 @@
+import sys
+sys.path.append("./")
 from Project.gui.base_app import BaseApplication
 
 
 class SharingApplication(BaseApplication):
-    QML_FILE = r'views\MainView.qml'
+    QML_FILE = './Project/sharing_app/views/MainView.qml'
 
     def __init__(self):
         super(SharingApplication, self).__init__(self.QML_FILE, "Sharing Application")

@@ -1,5 +1,7 @@
 from time import sleep
 
+import sys
+sys.path.append("./")
 from Project.networking.Events.event import Event
 from Project.networking.hub import Hub
 from Project.networking.secure_client import SecureClient

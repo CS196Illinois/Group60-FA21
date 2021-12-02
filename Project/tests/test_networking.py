@@ -3,6 +3,8 @@ from time import sleep
 
 import mss
 
+import sys
+sys.path.append("./")
 from Project.global_utils import screenshot, get_dimensions
 from Project.networking.Events.event import Event
 from Project.networking.secure_client import SecureClient
