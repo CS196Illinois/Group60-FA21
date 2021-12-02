@@ -32,6 +32,7 @@ f.write(str(message))
 f.write(str(decrypted))
 f.close()
 
-
 """helpful reading: https://www.pythonpool.com/rsa-encryption-python/, 
-https://pycryptodome.readthedocs.io/en/latest/src/public_key/rsa.html"""
+https://pycryptodome.readthedocs.io/en/latest/src/public_key/rsa.html
+https://pycryptodome.readthedocs.io/en/latest/src/public_key/rsa.html
+implementation: https://stackoverflow.com/questions/rsa-encryption-and-decryption-in-python"""
