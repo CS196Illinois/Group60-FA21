@@ -26,6 +26,10 @@ class TwinClient(object):
     def ready(self):
         return self._connection_ready
 
+    @property
+    def connection_ready(self):
+        return self._connection_ready
+
     def send(self, event: Event):
         if not self.ready:
             logger.warning(f"Connection not ready")
@@ -61,8 +65,9 @@ class TwinClient(object):
         return self._connection_ready
 
     @async_function
-    def _handle_broadcasts(self):
-        while self.running:
+    def handle_broadcasts(self):
+        self.running = True
+        while self.running and self.ready:
             for callback in self._broadcasted_callbacks:
                 event = callback()
                 if not isinstance(event, Event):
@@ -70,8 +75,10 @@ class TwinClient(object):
                     continue
                 self.send(event)
 
-    def _handle_events(self):
-        while self._event_handler and self.running:
+    @async_function
+    def handle_events(self):
+        self.running = True
+        while self._event_handler and self.running and self.ready:
             event = self.recv()
             if not isinstance(event, Event):
                 logger.warning(f"Expected event received {type(event)} instead")

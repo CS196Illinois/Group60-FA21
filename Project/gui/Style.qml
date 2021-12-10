@@ -52,12 +52,8 @@ Item {
     QtObject {
         id: iconFonts
 
-        property FontLoader glyphter1: FontLoader {
-            source: "fonts/Glyphter1.ttf"
-        }
-
-        property FontLoader glyphter2: FontLoader {
-            source: "fonts/Glyphter2.ttf"
+        property FontLoader glyphter: FontLoader {
+            source: "fonts/Glyphter.ttf"
         }
     }
 }

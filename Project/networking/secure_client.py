@@ -8,6 +8,7 @@ from Crypto.Util.Padding import pad, unpad
 
 from Project.global_utils import async_function
 from Project.networking.Events.event import Event
+from Project.networking.event_handler import EventHandler
 from Project.networking.helpers import send_all, recv_all
 from Project.networking.twin_client import TwinClient
 
@@ -15,8 +16,8 @@ logger = logging.getLogger(__name__)
 
 
 class SecureClient(TwinClient):
-    def __init__(self, host: str, port: int, session_key: str):
-        super().__init__(host, port, session_key)
+    def __init__(self, host: str, port: int, session_key: str, event_handler: EventHandler = None):
+        super().__init__(host, port, session_key, event_handler)
         self._encryption_cypher = None
         self._decryption_cypher = None
 

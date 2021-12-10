@@ -22,7 +22,7 @@ RowLayout {
     Text {
         id: statusIcon
 
-        font.family: Style.iconFonts.glyphter2.name
+        font.family: Style.iconFonts.glyphter.name
         text: "E"
         font.pixelSize: Style.fontSizes.medium
         color: Style.colors.iconNeutral
@@ -39,28 +39,24 @@ RowLayout {
         function setNeutral() {
             rotate.stop()
             rotation = 0
-            font.family = Style.iconFonts.glyphter2.name
-            text = "E"
+            text = "\u0052" // dash
             color = Style.colors.iconNeutral
         }
         function setLoading() {
             rotate.start()
-            font.family = Style.iconFonts.glyphter2.name
-            text = "O"
+            text = "\u0051" // Loading
             color = Style.colors.iconLoading
         }
         function setNegative() {
             rotate.stop()
             rotation = 0
-            font.family = Style.iconFonts.glyphter1.name
-            text = "P"
+            text = "\u0050" // X
             color = Style.colors.iconNegative
         }
         function setPositive() {
             rotate.stop()
             rotation = 0
-            font.family = Style.iconFonts.glyphter1.name
-            text = "N"
+            text = "\u004E" // V
             color = Style.colors.iconPositive
         }
     }

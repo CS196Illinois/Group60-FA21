@@ -2,14 +2,12 @@ import logging
 import sys
 from typing import Optional
 from PyQt5 import QtWidgets, QtQml, QtCore, QtGui
-#pip3 install PyQt5
 
 logger = logging.getLogger(__name__)
 
 
 class BaseApplication(object):
     def __init__(self, main_view: str, window_name: str = "Application"):
-        print(main_view)
         self._app = None  # type: Optional[QtWidgets.QApplication]
         self._engine = None  # type: Optional[QtQml.QQmlApplicationEngine]
         self._window = None  # type: Optional[QtGui.QWindow]

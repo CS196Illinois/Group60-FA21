@@ -1,4 +1,3 @@
-#import ctypes
 import pyautogui
 
 from functools import wraps
@@ -31,7 +30,7 @@ def get_dimensions():
             'height': height}
 
 
-def screenshot(rect: dict) -> FrameEvent:
+def screenshot(rect: dict = None) -> FrameEvent:
     with mss() as sct:
         img = sct.grab(rect)
         return FrameEvent(img)

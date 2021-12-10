@@ -1,12 +1,13 @@
-from functools import singledispatchmethod
 from typing import Dict
 
 
 class EventHandler(object):
     def __init__(self, callbacks: Dict):
-        for event_type, callback in callbacks:
-            self.handle.register(type(event_type), lambda event: callback(event))
+        self._callbacks = {event_type.__name__: lambda event: callback(event)
+                           for event_type, callback in callbacks.items()}
 
-    @singledispatchmethod
-    def handle(self, arg):
-        raise ValueError(f"Unhandled type {type(arg)}")
+    def handle(self, arg: object):
+        self._callbacks[arg.__class__.__name__](arg)
+
+    def add_handle(self, event_type, callback):
+        self._callbacks[event_type.__name__] = lambda event: callback(event)

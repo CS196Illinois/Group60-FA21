@@ -17,6 +17,26 @@ Window {
     minimumWidth: 400
     color: Style.colors.backgroundDark
 
+    Connections {
+        target: sharingVM
+
+        function onStateChanged(state) {
+            switch(state) {
+                case 1:
+                    loadingProgress.connection.setPositive()
+                    loadingProgress.encryption.setLoading()
+                    break
+                case 2:
+                    loadingProgress.encryption.setPositive()
+                    loadingProgress.streaming.setLoading()
+                    break
+                case 3:
+                    loadingProgress.streaming.setPositive()
+                    break
+            }
+        }
+    }
+
     ColumnLayout {
         id: keyItem
         anchors.horizontalCenter: parent.horizontalCenter
@@ -82,6 +102,7 @@ Window {
                     readOnly = true
                     parent.hideKeyEntry()
                     loadingProgress.show.start()
+                    sharingVM.launchClient(key)
                 }
             }
         }
@@ -99,6 +120,9 @@ Window {
         spacing: 30
 
         property alias show: show
+        property alias connection: connection
+        property alias encryption: encryption
+        property alias streaming: streaming
 
         PropertyAnimation on opacity {
             id: show
